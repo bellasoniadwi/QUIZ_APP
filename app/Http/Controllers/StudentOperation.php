@@ -62,14 +62,14 @@ class StudentOperation extends Controller
 
             if(isset($data['question'.$i])){
                     $q=Oex_question_master::where('id',$data['question'.$i])->get()->first();
-
-                    if($q->ans==$data['ans'.$i]){
-                        $result[$data['question'.$i]]='YES';
-                        $yes_ans++;
-                    }else{
-                        $result[$data['question'.$i]]='NO';
-                        $no_ans++;
-                    }
+             $result[$data['question'.$i]]=$data['ans'.$i];
+                    // if($q->ans==$data['ans'.$i]){
+                       
+                    //     $yes_ans++;
+                    // }else{
+                    //     $result[$data['question'.$i]]='NO';
+                    //     $no_ans++;
+                    // }
             }
         }
     
