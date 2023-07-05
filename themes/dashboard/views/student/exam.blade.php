@@ -41,11 +41,9 @@
                             </tr>
                         </thead>
                         <tbody>
-                          @foreach ($student_info as $std_info)
-                              
-                          
+                          @foreach ($student_info as $key=>$std_info)
                             <tr>
-                              <td>1</td>
+                              <td>{{ $key+1}}</td>
                               <td>{{ $std_info['title']}}</td>
                               <td>{{ $std_info['exam_date']}}</td>
                               <td><?php 
