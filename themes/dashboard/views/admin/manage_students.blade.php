@@ -70,7 +70,7 @@
                                   <td><input type="checkbox" class="student_status" data-id="{{ $std['id']}}" <?php if($std['std_status']==1){ echo "checked";} ?> name="status"></td>
                                   <td>
                                       {{-- <a href="{{url('admin/edit_students/'.$std['id'])}}" class="btn btn-primary">Edit</a> --}}
-                                      <a href="{{url('admin/delete_students/'.$std['id'])}}" class="btn btn-danger btn-sm">Delete</a>
+                                      <a href="{{ url('admin/delete_students/'.$std['id'])}}" method="post" class="btn btn-danger" onclick="return confirm('Apakah Anda Yakin Hapus Data?')">Delete</a>
                                   </td>
                               </tr>
                           @endforeach

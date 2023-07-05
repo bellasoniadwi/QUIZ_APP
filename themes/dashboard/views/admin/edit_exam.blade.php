@@ -65,6 +65,7 @@
                             <div class="col-sm-12">
                                 <div class="form-group">
                                     <button class="btn btn-primary">Update</button>
+                                     <a href="/admin/manage_exam/" class="btn btn-warning">Cancel </a>
                                 </div>
                             </div>
                         </div>

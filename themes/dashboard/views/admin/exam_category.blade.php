@@ -50,7 +50,7 @@
                                  <td><input class="category_status" data-id="<?php echo $cat['id'] ?>" <?php if($cat['status']==1){ echo "checked";} ?> type="checkbox" name="status"></td>
                                  <th>
                                      <a href="{{ url('admin/edit_category/'.$cat['id'])}}" class="btn btn-info">Edit</a>
-                                     <a href="{{ url('admin/delete_category/'.$cat['id'])}}" class="btn btn-danger">Delete</a>
+                                     <a href="{{ url('admin/delete_category/'.$cat['id'])}}" method="post" class="btn btn-danger" onclick="return confirm('Apakah Anda Yakin Hapus Data?')">Delete</a>
                                  </th>
                              </tr>   
                             @endforeach

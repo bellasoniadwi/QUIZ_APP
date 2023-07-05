@@ -56,7 +56,7 @@
                                    <td><input type="checkbox" class="exam_status" data-id="{{ $exam['id']}}" <?php if($exam['status']==1){ echo "checked";} ?> name="status"></td>
                                    <td>
                                        <a href="{{ url('admin/edit_exam/'.$exam['id'])}}" class="btn btn-info">Edit</a>
-                                       <a href="{{ url('admin/delete_exam/'.$exam['id'])}}" class="btn btn-danger">Delete</a>
+                                        <a href="{{ url('admin/delete_exam/'.$exam['id'])}}" method="post" class="btn btn-danger" onclick="return confirm('Apakah Anda Yakin Hapus Data?')">Delete</a>
                                        <a href="{{ url('admin/add_questions/'.$exam['id'])}}" class="btn btn-primary">Add Question</a>
                                    </td>
                                </tr>
