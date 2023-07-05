@@ -36,7 +36,7 @@
                                 <th>Exam title</th>
                                 <th>Exam date</th>
                                 <th>Status</th>
-                                <th>Result</th>
+                                {{-- <th>Result</th> --}}
                                 <th>Actions</th>
                             </tr>
                         </thead>
@@ -62,7 +62,7 @@
                                   echo "Pending";
                                 }
                               ?></td>
-                              <td>
+                              {{-- <td>
                                 <?php
                                     if($std_info['exam_joined']==1){
                                 ?>      
@@ -70,7 +70,7 @@
                                 <?php      
                                     }
                                 ?>
-                              </td>
+                              </td> --}}
 
                              
                               <td>
@@ -81,10 +81,10 @@
                                   ?>
                                     <a href="{{ url('student/join_exam/'.$std_info['exam_id'])}}" class="btn btn-primary btn-sm">Join Exam</a>
                                   
-                                  <?php
+                                  {{-- <?php
                                       } else{
                                   ?>      
-                                        <a href="{{ url('student/view_answer/'.$std_info['exam_id'])}}" class="btn btn-primary btn-sm">View Answers</a>
+                                        <a href="{{ url('student/view_answer/'.$std_info['exam_id'])}}" class="btn btn-primary btn-sm">View Answers</a> --}}
 
                                   
                                   <?php     
