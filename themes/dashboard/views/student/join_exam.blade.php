@@ -59,6 +59,7 @@
                     <input type="hidden" name="exam_id" value="{{ Request::segment(3)}}">
                     {{ csrf_field()}}
                    <div class="row">
+                      <div class="col-sm-12">
 
                         @foreach ($question as $key=>$q)
                             <div class="col-sm-12 mt-4">
@@ -67,6 +68,7 @@
                                     $options = json_decode(json_decode(json_encode($q->options)),true);
                               ?>
                               <input type="hidden" name="question{{$key+1}}" value="{{$q['id']}}">
+                              @if (($q->ans) != null)
                               <ul class="question_options">
                                   <li><input type="radio" value="{{ $options['option1']}}" name="ans{{$key+1}}"> {{ $options['option1']}}</li>
                                   <li><input type="radio" value="{{ $options['option2']}}" name="ans{{$key+1}}"> {{ $options['option2']}}</li>
@@ -75,6 +77,9 @@
 
                                   <li style="display: none;"><input value="0" type="radio" checked="checked" name="ans{{$key+1}}"> {{ $options['option4']}}</li>
                               </ul>
+                              @else
+                              <input type="text" required="required" name="question" placeholder="Enter Question" class="form-control">
+                              @endif
                             </div>
                         @endforeach
                         
@@ -84,6 +89,7 @@
                             <input type="hidden" name="index" value="{{ $key+1}}">
                               <button type="submit" class="btn btn-primary" id="myCheck">Submit</button>
                           </div>
+                      </div>
                    </div>
                   </form>
                   

@@ -138,6 +138,31 @@ class AdminController extends Controller
             echo json_encode($arr);
     }
 
+    //Adding new exam page
+    public function add_new_essay(Request $request){
+        $validator = Validator::make($request->all(),['title'=>'required','exam_date'=>'required','exam_category'=>'required',
+        'exam_duration'=>'required']);
+
+        if($validator->fails()){
+            $arr=array('status'=>'false','message'=>$validator->errors()->all());
+        }
+        else{
+            
+            $exam = new Oex_exam_master();
+            $exam->title = $request->title;
+            $exam->exam_date = $request->exam_date;
+            $exam->exam_duration = $request->exam_duration;
+            $exam->category = $request->exam_category;
+            $exam->status = 1;
+            $exam->save();
+
+            $arr = array('status'=>'true','message'=>'exam added successfully','reload'=>url('admin/manage_exam'));
+
+        }
+
+        echo json_encode($arr);
+    }
+
 
 
     //editing exam status
@@ -312,6 +337,13 @@ class AdminController extends Controller
         return view('admin.add_questions',$data);
     }
 
+    //addning questions
+    public function add_questions_essay($id){
+
+        $data['questions']=Oex_question_master::where('exam_id',$id)->get()->toArray();
+        return view('admin.add_questions',$data);
+    }
+
 
     //adding new questions
     public function add_new_question(Request $request){
@@ -357,7 +389,29 @@ class AdminController extends Controller
         echo json_encode($arr);
     }
 
+    //adding new questions
+    public function add_new_question_essay(Request $request){
 
+        $validator = Validator::make($request->all(),[
+            'question'=>'required',
+        ]);
+
+        if($validator->fails()){
+            $arr = array('status'=>'false','message'=>$validator->errors()->all());
+
+        }else{
+            $q = new Oex_question_master();
+            $q->exam_id=$request->exam_id;
+            $q->questions=$request->question;
+
+            $q->status=1;
+            $q->save();
+            
+            $arr = array('status'=>'true','message'=>'successfully added','reload'=>url('admin/add_questions/'.$request->exam_id));
+        }
+
+        echo json_encode($arr);
+    }
 
     //Edit question status
     public function question_status($id){
