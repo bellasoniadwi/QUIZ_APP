@@ -55,7 +55,7 @@
                 
                 <div class="card-body">
 
-                  <form action="{{url('student/submit_questions')}}" method="POST">
+                  <form action="{{url('student/submit_questions')}}" method="POST" id="examForm">
                     <input type="hidden" name="exam_id" value="{{ Request::segment(3)}}">
                     {{ csrf_field()}}
                    <div class="row">
@@ -70,15 +70,15 @@
                               <input type="hidden" name="question{{$key+1}}" value="{{$q['id']}}">
                               @if (($q->ans) != null)
                               <ul class="question_options">
-                                  <li><input type="radio" value="{{ $options['option1']}}" name="ans{{$key+1}}"> {{ $options['option1']}}</li>
-                                  <li><input type="radio" value="{{ $options['option2']}}" name="ans{{$key+1}}"> {{ $options['option2']}}</li>
-                                  <li><input type="radio" value="{{ $options['option3']}}" name="ans{{$key+1}}"> {{ $options['option3']}}</li>
-                                  <li><input type="radio" value="{{ $options['option4']}}" name="ans{{$key+1}}"> {{ $options['option4']}}</li>
+                                  <li><input type="radio" value="{{ $options['option1']}}" name="ans{{$key+1}}" @if(old('ans'.$key+1) == $options['option1']) checked @endif> {{ $options['option1']}}</li>
+                                  <li><input type="radio" value="{{ $options['option2']}}" name="ans{{$key+1}}" @if(old('ans'.$key+1) == $options['option2']) checked @endif> {{ $options['option2']}}</li>
+                                  <li><input type="radio" value="{{ $options['option3']}}" name="ans{{$key+1}}" @if(old('ans'.$key+1) == $options['option3']) checked @endif> {{ $options['option3']}}</li>
+                                  <li><input type="radio" value="{{ $options['option4']}}" name="ans{{$key+1}}" @if(old('ans'.$key+1) == $options['option4']) checked @endif> {{ $options['option4']}}</li>
 
                                   <li style="display: none;"><input value="0" type="radio" checked="checked" name="ans{{$key+1}}"> {{ $options['option4']}}</li>
                               </ul>
                               @else
-                              <input type="text" required="required" name="ans{{$key+1}}" placeholder="Isikan jawaban anda..." class="form-control">
+                              <input type="text" required="required" name="ans{{$key+1}}" placeholder="Isikan jawaban anda..." class="form-control" value="{{ old('ans'.$key+1) }}">
                               @endif
                             </div>
                         @endforeach
@@ -105,6 +105,41 @@
 
     <!-- Modal -->
 
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      // Jika data tersimpan di localStorage, isi kembali nilai input pada form
+      if (localStorage.getItem("examDraft")) {
+        const examDraft = JSON.parse(localStorage.getItem("examDraft"));
+        const form = document.getElementById("examForm");
+        Object.keys(examDraft).forEach(function(key) {
+          const input = form.querySelector(`[name="${key}"]`);
+          if (input.type === "radio") {
+            // Jika input adalah radio button
+            const radioButtons = form.querySelectorAll(`[name="${key}"]`);
+            radioButtons.forEach(function(radioButton) {
+              if (radioButton.value === examDraft[key]) {
+                radioButton.checked = true;
+              }
+            });
+          } else {
+            // Jika input bukan radio button
+            if (input) {
+              input.value = examDraft[key];
+            }
+          }
+        });
+      }
 
- 
+      // Simpan nilai input pada form ke localStorage setiap 3 detik
+      setInterval(function() {
+        const form = document.getElementById("examForm");
+        const formData = new FormData(form);
+        const examDraft = {};
+        for (let pair of formData.entries()) {
+          examDraft[pair[0]] = pair[1];
+        }
+        localStorage.setItem("examDraft", JSON.stringify(examDraft));
+      }, 3000);
+    });
+    </script>
 @endsection
