@@ -78,7 +78,7 @@
                                   <li style="display: none;"><input value="0" type="radio" checked="checked" name="ans{{$key+1}}"> {{ $options['option4']}}</li>
                               </ul>
                               @else
-                              <input type="text" required="required" name="question" placeholder="Isikan jawaban anda..." class="form-control">
+                              <input type="text" required="required" name="ans{{$key+1}}" placeholder="Isikan jawaban anda..." class="form-control">
                               @endif
                             </div>
                         @endforeach
