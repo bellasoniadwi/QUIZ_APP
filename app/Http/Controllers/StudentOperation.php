@@ -42,7 +42,7 @@ class StudentOperation extends Controller
     //join exam page
     public function join_exam($id){
         
-        $question= Oex_question_master::where('exam_id',$id)->get();
+        $question= Oex_question_master::where('exam_id',$id)->inRandomOrder()->get();
 
         $exam=Oex_exam_master::where('id',$id)->get()->first();
         return view('student.join_exam',['question'=>$question,'exam'=>$exam]);
